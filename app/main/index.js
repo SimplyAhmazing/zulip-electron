@@ -7,6 +7,7 @@ const ipc = require('electron').ipcMain;
 const Configstore = require('configstore');
 const JsonDB = require('node-json-db');
 const tray = require('./tray');
+const appMenu = require('./menu');
 const link = require ('./link_helper');
 const {linkIsInternal} = link;
 
@@ -60,10 +61,8 @@ function updateDockBadge(title) {
 	let messageCount = (/\(([0-9]+)\)/).exec(title);
 	messageCount = messageCount ? Number(messageCount[1]) : 0;
 
-	console.log(messageCount);
-
 	if (process.platform === 'darwin') {
-		app.setBadgeCount(messageCount);
+		app.setBadgeCount(messageCount)
 	}
 }
 
@@ -147,6 +146,7 @@ app.on('activate', () => {
 });
 
 app.on('ready', () => {
+	electron.Menu.setApplicationMenu(appMenu);
 	mainWindow = createMainWindow();
 	tray.create(mainWindow);
 
@@ -168,9 +168,7 @@ app.on('ready', () => {
 	    event.returnValue = res;
 	});
 
-
 	// TODO - use global shortcut instead
-
 	electronLocalshortcut.register(mainWindow, 'CommandOrControl+R', () => {
 	   mainWindow.reload();
 	 });
@@ -182,15 +180,15 @@ app.on('ready', () => {
 	 });
 
     electronLocalshortcut.register(mainWindow, 'CommandOrControl+=', () => {
-    	page.executeJavaScript('zoomIn()');
+    	page.send('zoomIn');
 	});
 
     electronLocalshortcut.register(mainWindow, 'CommandOrControl+-', () => {
-		page.executeJavaScript('zoomOut()');
+		page.send('zoomOut');
     });
 
    	electronLocalshortcut.register(mainWindow, 'CommandOrControl+0', () => {
-		page.executeJavaScript('zoomActualSize()');
+		page.send('zoomActualSize');
 	});
 
     page.on('new-window', (event, url) => {

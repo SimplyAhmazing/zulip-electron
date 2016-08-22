@@ -3,14 +3,10 @@ const path = require('path');
 const electron = require('electron');
 const app = require('electron').app;
 const {shell} = require('electron');
-const about = require ('./about');
-const domain = require ('./domain');
-const { createAboutWindow, onClosed } = about;
-const { createdomainWindow } = domain;
+const { addDomain, About } = require('./windowmanager');
+const BrowserWindow = electron.BrowserWindow;
 
 let tray = null;
-let aboutWindow;
-let domainWindow;
 
 const APP_ICON = path.join(__dirname, '../resources', 'Icon');
 
@@ -22,7 +18,6 @@ const iconPath = () => {
 
 exports.create = win => {
 
-
 	// Noone is using this feature. so let's hide it for now.
 	// const toggleWin = () => {
 	// 	if (win.isVisible()) {
@@ -31,21 +26,7 @@ exports.create = win => {
 	// 		win.show();
 	// 	}
 	// };
-
-	const reload = () => {
-		win.reload();
-	};
-
-	const About = () => {
-		aboutWindow = createAboutWindow();
-		aboutWindow.show();
-	};
-
-	const addDomain = () => {
-		domainWindow = createdomainWindow();
-		domainWindow.show();
-	};
-
+	
 	const contextMenu = electron.Menu.buildFromTemplate([
 		{
 			label: 'About',
@@ -58,8 +39,8 @@ exports.create = win => {
 		},
 		{
 			label: 'Change Zulip server',
-			click() {
-				addDomain();
+			click(item, focusedWindow) {
+				if(focusedWindow) addDomain();
 			}
 		},
 		{
@@ -67,8 +48,8 @@ exports.create = win => {
 		},
 		{
 			label: 'Reload',
-			click() {
-				reload();
+			click (item, focusedWindow) {
+			  if (focusedWindow) focusedWindow.reload()
 			}
 		},
 		{
