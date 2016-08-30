@@ -6,3 +6,6 @@ domain.json
 // osx garbage
 *.DS_Store
 .DS_Store
+
+# pycharm
+.idea
