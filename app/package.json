@@ -3,6 +3,7 @@
   "productName": "Zulip",
   "version": "0.1.4",
   "description": "Zulip Desktop App",
+  "author": "engineering@zulip.com",
   "license": "MIT",
   "repository": {
     "type": "git",
