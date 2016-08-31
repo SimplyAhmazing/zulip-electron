@@ -9,3 +9,4 @@ domain.json
 
 # pycharm
 .idea
+.node-version
