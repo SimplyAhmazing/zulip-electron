@@ -1,18 +1,25 @@
 'use strict';
 const {remote} = require('electron');
 
+const prefWindow = remote.getCurrentWindow();
+
 document.getElementById('close-button').addEventListener('click', () => {
-	const window = remote.getCurrentWindow();
-	window.close();
+	prefWindow.close();
 });
 
+document.addEventListener('keydown', event => {
+	if (event.key === 'Escape' || event.keyCode === 27) {
+		prefWindow.close();
+	}
+});
 // eslint-disable-next-line no-unused-vars
 function addDomain() {
 	const request = require('request');
 	const ipcRenderer = require('electron').ipcRenderer;
 	const JsonDB = require('node-json-db');
+	const {app} = require('electron').remote;
 
-	const db = new JsonDB('domain', true, true);
+	const db = new JsonDB(app.getPath('userData') + '/domain.json', true, true);
 	document.getElementById('main').innerHTML = 'checking...';
 	document.getElementById('pic').style.display = 'block';
 

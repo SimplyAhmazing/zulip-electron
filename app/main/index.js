@@ -13,7 +13,7 @@ const link = require('./link-helper');
 
 const {linkIsInternal} = link;
 
-const db = new JsonDB('domain', true, true);
+const db = new JsonDB(app.getPath('userData') + '/domain.json', true, true);
 const data = db.getData('/');
 
 // adds debug features like hotkeys for triggering dev tools and reload
@@ -40,6 +40,8 @@ function checkWindowURL() {
 }
 
 const APP_ICON = path.join(__dirname, '../resources', 'Icon');
+
+const spellDict = path.join(__dirname, '../../node_modules/simple-spellchecker/dict');
 
 const iconPath = () => {
 	return APP_ICON + (process.platform === 'win32' ? '.ico' : '.png');
@@ -151,7 +153,7 @@ app.on('ready', () => {
 	const page = mainWindow.webContents;
 
 	// Add spellcheck dictionary
-	SpellChecker.getDictionary('en-US', './node_modules/simple-spellchecker/dict', (err, result) => {
+	SpellChecker.getDictionary('en-US', spellDict, (err, result) => {
 		if (!err) {
 			myDictionary = result;
 		}
