@@ -39,7 +39,13 @@ function checkWindowURL() {
 	return targetLink;
 }
 
-const APP_ICON = path.join(__dirname, '../resources', 'Icon');
+// use build dir when in eve
+let APP_ICON
+if (process.env.NODENV == 'development'){
+    APP_ICON = path.join(process.resourcesPath, 'icon');
+} else {
+    APP_ICON = path.join(__dirname, '..', 'build', 'icon');
+}
 
 const spellDict = path.join(__dirname, '../../node_modules/simple-spellchecker/dict');
 

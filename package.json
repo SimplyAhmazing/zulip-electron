@@ -23,8 +23,9 @@
     "build": {
     "asar": false,
     "appId": "zulip",
+    "category": "public.app-category.productivity",
     "electronVersion": "1.3.3",
-    "app-category-type": "public.app-category.productivity",
+    "extraResources": "build/*",
     "productName": "Zulip",
     "dmg": {
       "background-color": "white",
