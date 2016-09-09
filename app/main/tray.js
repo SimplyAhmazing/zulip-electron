@@ -7,10 +7,10 @@ const {addDomain, about} = require('./windowmanager');
 let tray = null;
 
 let APP_ICON
-if (process.env.NODENV == 'development'){
-    APP_ICON = path.join(process.resourcesPath, 'Icon');
+if (process.env.NODENV !== 'development'){
+    APP_ICON = path.join(process.resourcesPath, 'build', 'icon');
 } else {
-    APP_ICON = path.join(__dirname, '..', '..', 'build', 'Icon');
+    APP_ICON = path.join(__dirname, '..', '..', 'build', 'icon');
 }
 
 const iconPath = () => {

@@ -9,7 +9,7 @@
   "scripts": {
     "postinstall": "install-app-deps",
     "test": "xo",
-    "start": "electron .",
+    "start": "NODENV=development electron app/",
     "dev": "gulp dev",
     "build:osx": "electron-packager . --out=dist --app-version=$npm_package_version --prune --asar --icon=app/resources/Icon.icns --overwrite --platform=darwin --arch=x64",
     "build": "electron-packager . --out=dist --app-version=$npm_package_version --prune --asar --overwrite --all"

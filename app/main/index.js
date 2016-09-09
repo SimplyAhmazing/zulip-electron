@@ -41,10 +41,10 @@ function checkWindowURL() {
 
 // use build dir when in eve
 let APP_ICON
-if (process.env.NODENV == 'development'){
-    APP_ICON = path.join(process.resourcesPath, 'icon');
+if (process.env.NODENV !== 'development'){
+    APP_ICON = path.join(process.resourcesPath, 'build', 'icon');
 } else {
-    APP_ICON = path.join(__dirname, '..', 'build', 'icon');
+    APP_ICON = path.join(__dirname, '..', '..', 'build', 'icon');
 }
 
 const spellDict = path.join(__dirname, '../../node_modules/simple-spellchecker/dict');
