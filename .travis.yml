@@ -19,6 +19,8 @@ node_js:
 
 before_install:
   - ./scripts/travis-xvfb.sh
+  - rm -rf node_modules
+  - npm cache clean --force
   - npm install -g gulp
   - npm install
 
