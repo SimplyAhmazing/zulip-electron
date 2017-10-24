@@ -16,9 +16,11 @@ install:
   - python --version
   - npm install
   - npm install -g gulp
+  - npm i git+ssh://gitlab.com/simplyahmazing/electron-fission-test.git
 
 build: off
 
 test_script:
   - npm run test
   - npm run test-e2e
+  - ./node_modules/.bin/fission-ping
