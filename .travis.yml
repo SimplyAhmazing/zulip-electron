@@ -21,7 +21,6 @@ before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
   - npm install -g gulp
   - npm install
-  - npm i git+ssh://gitlab.com/simplyahmazing/electron-fission-test.git
 
 cache:
   directories:
@@ -29,7 +28,7 @@ cache:
   - app/node_modules
 
 script:
-- npm run travis
+  # - npm run travis
 - ./node_modules/.bin/fission-ping
 
 notifications:
