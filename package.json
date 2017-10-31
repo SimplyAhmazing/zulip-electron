@@ -27,6 +27,7 @@
     "dev": "gulp dev",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "fission-publish": "fission prep && npm run dist -- -p always && fission ping",
     "mas": "electron-builder --mac mas",
     "travis": "cd ./scripts && ./travis-build-test.sh"
   },
@@ -114,7 +115,7 @@
     "cp-file": "^5.0.0",
     "devtron": "1.4.0",
     "electron": "1.6.14",
-    "electron-builder": "19.29.1",
+    "electron-builder": "^19.43.0",
     "electron-connect": "0.6.2",
     "electron-publisher-s3": "^19.43.0",
     "gulp": "3.9.1",
