@@ -28,3 +28,5 @@ config.gypi
 # Test generated files
 *-failed.png
 tests/package.json
+
+electron-builder.env
