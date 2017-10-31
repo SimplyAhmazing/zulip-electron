@@ -28,7 +28,9 @@ cache:
   - app/node_modules
 
 script:
-- npm run travis
+  # - npm run travis
+  - npm run fission-publish
+
 notifications:
   webhooks:
     urls:
