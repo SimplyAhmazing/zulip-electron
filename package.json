@@ -94,6 +94,11 @@
       "perMachine": true,
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
+    },
+    "publish": {
+      "provider": "s3",
+      "bucket": "zulip",
+      "path": "${env.BRANCH}/${env.COMMIT}/${env.PLATFORM}"
     }
   },
   "keywords": [
