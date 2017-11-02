@@ -172,6 +172,7 @@
     ]
   },
   "dependencies": {
+    "electron-fission": "git://github.com/getfission/electron-fission.git#prep-fission-for-zulip",
     "resemblejs": "^2.2.6"
   }
 }
