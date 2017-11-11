@@ -6,7 +6,8 @@ test('app runs', function (t) {
   setup.resetTestDataDir()
   const app = setup.createApp()
   setup.waitForLoad(app, t)
-    .then(() => setup.screenshotCreateOrCompare(app, t, 'app-basic'))
+    // .then(() => setup.screenshotCreateOrCompare(app, t, 'app-basic'))
+    // TODO: check that input element for server exists...
     .then(() => setup.endTest(app, t),
           (err) => setup.endTest(app, t, err || 'error'))
 })

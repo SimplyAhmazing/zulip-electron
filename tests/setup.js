@@ -13,7 +13,6 @@ const config = require('./config')
 module.exports = {
   createApp,
   endTest,
-  screenshotCreateOrCompare,
   waitForLoad,
   wait,
   resetTestDataDir
@@ -73,84 +72,6 @@ function wait (ms) {
 function endTest (app, t, err) {
   return app.stop().then(function () {
     t.end(err)
-  })
-}
-
-// Takes a screenshot of the app
-// If we already have a reference under test/screenshots, assert that they're the same
-// Otherwise, create the reference screenshot: test/screenshots/<platform>/<name>.png
-function screenshotCreateOrCompare (app, t, name) {
-  // Prep view for screenshot. Remove blinking cursor and auto-hiding scrollbars
-  // to ensure screen shots will be consistent across different OSs
-  const jsToRemoveScrollbars = "_webviews=document.querySelectorAll('webview');_webviews.forEach((w)=>w.insertCSS('::-webkit-scrollbar { display: none; }'))"
-  const jsToScrollToBottomOfPage = 'window.scrollTo(0,document.body.scrollHeight);'
-  // console.log(
-  //   'exec js is',
-  //   // app.webContents.executeJavaScript(jsToScrollToBottomOfPage + jsToRemoveScrollbars)
-  // )
-
-  // Remove cursor from page before taking a screenshot
-  // const jsToRemoveBlinkingCursor = 'setImmediate(function blur() { document.activeElement.blur(); })'
-  // app.webContents.executeJavaScript(jsToRemoveBlinkingCursor)
-
-  const ssDir = path.join(__dirname, 'screenshots', process.platform)
-  const ssPath = path.join(ssDir, name + '.png')
-  let ssBuf
-
-  try {
-    ssBuf = fs.readFileSync(ssPath)
-  } catch (err) {
-    ssBuf = Buffer.alloc(0)
-  }
-  return app
-    .webContents
-    .executeJavaScript(jsToScrollToBottomOfPage + jsToRemoveScrollbars)
-    .then(function () {
-    return app.browserWindow.capturePage()
-  }).then(function (buffer) {
-    if (ssBuf.length === 0) {
-      console.log('Saving screenshot ' + ssPath)
-      fs.writeFileSync(ssPath, buffer)
-
-      /**
-       * If you don't have a base screenshot nor the dev environment for a specific platform
-       * then you can log the image base64 string, copy and save it as an image locally on your
-       * machine in order to generate base images for a test for specific platform
-       */
-      if(isCI) {
-        console.log('Screenshot Image as base64 string:', buffer.toString('base64'))
-      }
-    } else {
-      looksSame(ssBuf, buffer, {ignoreCaret: true}, function (error, match) {
-        console.log('PNG ERRRR', error)
-        t.ok(match, 'screenshot comparison ' + name)
-        if (!match) {
-          console.log()
-          
-          if (isCI) {
-            console.log('Failed image base64 as string:', buffer.toString('base64'))
-          } else {
-            const ssFailedPath = path.join(ssDir, name + '-failed.png')
-            console.log('Saving screenshot, failed comparison: ' + ssFailedPath)
-            fs.writeFileSync(ssFailedPath, buffer)
-          }
-        /**
-         * Uncomment lines below to get screenshot diff between -failed and saved image
-         * https://github.com/gemini-testing/looks-same#building-diff-image
-         */
-        //   looksSame.createDiff({
-        //     reference: ssBuf,
-        //     current: buffer,
-        //     ignoreCaret: true,
-        //     diff: path.join(ssDir, name + '-diff.png'),
-        //     highlightColor: '#ff00ff', //color to highlight the differences 
-        //     strict: false, //strict comparsion 
-        //     tolerance: 4
-        // }, function(error) {
-        // })
-        }
-      })
-    }
   })
 }
 
