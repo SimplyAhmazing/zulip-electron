@@ -1,7 +1,7 @@
 {
   "name": "zulip",
   "productName": "Zulip",
-  "version": "1.5.0",
+  "version": "1.6.0-beta",
   "main": "./app/main",
   "description": "Zulip Desktop App",
   "license": "Apache-2.0",
@@ -108,6 +108,7 @@
     "assert": "1.4.1",
     "cp-file": "^5.0.0",
     "devtron": "1.4.0",
+    "electron-builder": "19.45.5",
     "electron": "1.6.14",
     "electron-builder": "19.29.1",
     "electron-connect": "0.6.2",
@@ -124,6 +125,9 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.8.0",
     "xo": "0.18.2"
+    "xo": "0.18.2",
+    "pre-commit": "1.2.2",
+    "electron-debug": "1.4.0"
   },
   "xo": {
     "parserOptions": {

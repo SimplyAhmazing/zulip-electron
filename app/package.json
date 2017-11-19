@@ -1,7 +1,7 @@
 {
   "name": "zulip",
   "productName": "Zulip",
-  "version": "1.5.0",
+  "version": "1.6.0-beta",
   "description": "Zulip Desktop App",
   "license": "Apache-2.0",
   "email": "<svnitakash@gmail.com>",
@@ -27,12 +27,10 @@
     "InstantMessaging"
   ],
   "dependencies": {
-    "electron-debug": "1.4.0",
     "electron-is-dev": "0.3.0",
-    "electron-localshortcut": "2.0.2",
     "electron-log": "2.2.7",
-    "electron-spellchecker": "1.2.0",
-    "electron-updater": "2.8.9",
+    "electron-spellchecker": "1.1.2",
+    "electron-updater": "2.16.2",
     "node-json-db": "0.7.3",
     "request": "2.81.0",
     "wurl": "2.5.0",

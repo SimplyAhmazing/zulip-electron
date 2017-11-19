@@ -26,5 +26,6 @@ yarn-error.log*
 config.gypi
 
 # Test generated files
-*-failed.png
 tests/package.json
+
+.python-version
